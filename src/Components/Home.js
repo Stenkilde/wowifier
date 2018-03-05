@@ -22,7 +22,7 @@ const Home = props => (
 
     {props.data.map((item) => {
       return (
-        <h1 key={item.id}>{item.id}</h1>
+        <h1 key={item.name}>{item.name}</h1>
       )
     })}
 

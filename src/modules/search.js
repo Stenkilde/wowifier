@@ -56,12 +56,12 @@ export const searchQueryAsync = () => {
       searching: true
     })
 
-    return setTimeout(() => {
-      dispatch({
-        type: SEARCH_REQUESTED,
-        results: [{id: 1}, {id: 2}],
-        searching: false
-      })
-    }, 3000)
+    fetchAll().then((response) => {
+        dispatch({
+            type: SEARCH_REQUESTED,
+            results: response,
+            searching: false
+        })
+    });
   }
 }
