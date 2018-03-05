@@ -1,0 +1,14 @@
+[
+    {
+        "name": "Stenkilde",
+        "class": "Paladin",
+        "level": 110,
+        "faction": "Alliance"
+    },
+    {
+        "name": "Timethriller",
+        "class": "Warlock",
+        "level": 110,
+        "faction": "Horde"
+    }
+]

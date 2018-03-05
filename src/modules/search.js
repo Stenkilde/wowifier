@@ -1,10 +1,14 @@
-export const SEARCH_ADDED = 'counter/SEARCH_ADDED';
-export const SEARCH_DELETED = 'counter/SEARCH_DELETED';
-export const SEARCH_REQUESTED = 'counter/SEARCH_REQUESTED';
+import { fetchAll } from '../services/Mock.js';
+
+export const SEARCH_ADDED = 'search/SEARCH_ADDED';
+export const SEARCH_DELETED = 'search/SEARCH_DELETED';
+export const SEARCH_REQUESTED = 'search/SEARCH_REQUESTED';
+export const REQUESTING_SEARCH = 'search/REQUESTING_SEARCH';
 
 const initialState = {
     query: '',
-    searchResult: []
+    searchResult: [],
+    isSearching: false
 }
 
 export default (state = initialState, action) => {
@@ -23,16 +27,23 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 query: action.query,
-                searchResult: action.searchResult
+                searchResult: action.results,
+                isSearching: action.searching
+            }
+        case REQUESTING_SEARCH:
+            return {
+                ...state,
+                isSearching: action.searching
             }
         default:
             return state;
     }
 }
 
-export const searchQuery = () => {
+export const searchQuery = (event) => {
     return dispatch => {
         dispatch({
+            query: event.target.value,
             type: SEARCH_ADDED
         })
     }
@@ -40,9 +51,16 @@ export const searchQuery = () => {
 
 export const searchQueryAsync = () => {
   return dispatch => {
+    dispatch({
+      type: REQUESTING_SEARCH,
+      searching: true
+    })
+
     return setTimeout(() => {
       dispatch({
-        type: SEARCH_ADDED
+        type: SEARCH_REQUESTED,
+        results: [{id: 1}, {id: 2}],
+        searching: false
       })
     }, 3000)
   }

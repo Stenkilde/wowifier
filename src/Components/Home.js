@@ -7,17 +7,35 @@ import {
   searchQueryAsync
 } from '../modules/search';
 
+// const handleSubmit = event => {
+//   event.preventDefault();
+
+//   searchQueryAsync();
+// }
+
 const Home = props => (
   <div>
     <h1>Home</h1>
-    <p>SearchQuery: {props.searchQuery}</p>
-    <input type="text" onChange={props.searchQuery} />
+    <p>SearchQuery: {props.query}</p>
+    <input type="text" onChange={(event) => props.searchQuery(event)} />
+    <button onClick={props.searchQueryAsync}>Search</button>
+
+    {props.data.map((item) => {
+      return (
+        <h1 key={item.id}>{item.id}</h1>
+      )
+    })}
+
+    Is Searching {props.isSearching ? 'yes' : 'no'}
+
     <button onClick={() => props.changePage()}>Go to about page via redux</button>
   </div>
 )
 
 const mapStateToProps = state => ({
-  searchQuery: state.search.searchQuery
+  query: state.search.query,
+  data: state.search.searchResult,
+  isSearching: state.search.isSearching
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
